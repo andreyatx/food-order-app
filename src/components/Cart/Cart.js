@@ -29,13 +29,16 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
-    await fetch('https://react-http-6b4a6.firebaseio.com/orders.json', {
-      method: 'POST',
-      body: JSON.stringify({
-        user: userData,
-        orderedItems: cartCtx.items,
-      }),
-    });
+    await fetch(
+      'https://yatxreact-default-rtdb.europe-west1.firebasedatabase.app//orders.json',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          user: userData,
+          orderedItems: cartCtx.items,
+        }),
+      }
+    );
     setIsSubmitting(false);
     setDidSubmit(true);
     cartCtx.clearCart();
@@ -89,10 +92,10 @@ const Cart = (props) => {
     <React.Fragment>
       <p>Successfully sent the order!</p>
       <div className={classes.actions}>
-      <button className={classes.button} onClick={props.onClose}>
-        Close
-      </button>
-    </div>
+        <button className={classes.button} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
     </React.Fragment>
   );
 
