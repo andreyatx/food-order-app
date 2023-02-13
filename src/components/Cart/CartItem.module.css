@@ -63,3 +63,22 @@
   background-color: #8a2b06;
   color: white;
 }
+
+.actionsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.delete {
+  max-width: 32px;
+  align-self: flex-end;
+  margin-bottom: 2rem;
+}
+
+.cart-item .btnDelete {
+  max-width: fit-content;
+  min-height: fit-content;
+  text-align: center;
+  font-size: smaller;
+}

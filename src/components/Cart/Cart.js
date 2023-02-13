@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
 
-import Modal from '../UI/Modal';
-import CartItem from './CartItem';
-import classes from './Cart.module.css';
-import CartContext from '../../store/cart-context';
-import Checkout from './Checkout';
+import Modal from "../UI/Modal";
+import CartItem from "./CartItem";
+import classes from "./Cart.module.css";
+import CartContext from "../../store/cart-context";
+import Checkout from "./Checkout";
 
 const Cart = (props) => {
   const [isCheckout, setIsCheckout] = useState(false);
@@ -23,6 +23,10 @@ const Cart = (props) => {
     cartCtx.addItem(item);
   };
 
+  const cartItemClearHandler = (id) => {
+    cartCtx.clearItem(id);
+  };
+
   const orderHandler = () => {
     setIsCheckout(true);
   };
@@ -30,9 +34,9 @@ const Cart = (props) => {
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true);
     await fetch(
-      'https://yatxreact-default-rtdb.europe-west1.firebasedatabase.app//orders.json',
+      "https://yatxreact-default-rtdb.europe-west1.firebasedatabase.app//orders.json",
       {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({
           user: userData,
           orderedItems: cartCtx.items,
@@ -45,7 +49,7 @@ const Cart = (props) => {
   };
 
   const cartItems = (
-    <ul className={classes['cart-items']}>
+    <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
         <CartItem
           key={item.id}
@@ -54,6 +58,7 @@ const Cart = (props) => {
           price={item.price}
           onRemove={cartItemRemoveHandler.bind(null, item.id)}
           onAdd={cartItemAddHandler.bind(null, item)}
+          onClearItem={cartItemClearHandler.bind(null, item.id)}
         />
       ))}
     </ul>
@@ -61,7 +66,7 @@ const Cart = (props) => {
 
   const modalActions = (
     <div className={classes.actions}>
-      <button className={classes['button--alt']} onClick={props.onClose}>
+      <button className={classes["button--alt"]} onClick={props.onClose}>
         Close
       </button>
       {hasItems && (
